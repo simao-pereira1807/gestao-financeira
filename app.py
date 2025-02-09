@@ -47,6 +47,7 @@ tipo = st.selectbox("💳 Tipo de Transação", ["Despesa", "Recebimento"], inde
 
 with st.form("transacao_form"):
     data = st.date_input("📅 Data da Transação")
+    data_formatada = data.strftime("%d-%m-%Y")
 
     if tipo == "Despesa":
         categoria = st.selectbox("📂 Categoria", [
@@ -64,7 +65,7 @@ with st.form("transacao_form"):
 
 # Se clicar em "Submeter", adiciona a transação ao histórico e envia para a API
 if submit_button:
-    nova_transacao = {"data": str(data), "tipo": tipo, "categoria": categoria, "descricao": descricao, "valor": valor}
+    nova_transacao = {"data": str(data_formatada), "tipo": tipo, "categoria": categoria, "descricao": descricao, "valor": valor}
 
     # Adiciona à lista local
     st.session_state.historico_transacoes.insert(0, nova_transacao)  # Insere no início para manter ordem cronológica
